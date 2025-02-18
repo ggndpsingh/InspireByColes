@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		543F44BC2D640D7C000373F5 /* ColesInspire in Frameworks */ = {isa = PBXBuildFile; productRef = 543F44BB2D640D7C000373F5 /* ColesInspire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		543F449E2D64062D000373F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				543F44BC2D640D7C000373F5 /* ColesInspire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = ColesRecipes;
 			packageProductDependencies = (
+				543F44BB2D640D7C000373F5 /* ColesInspire */,
 			);
 			productName = ColesRecipes;
 			productReference = 543F448D2D64062B000373F5 /* ColesRecipes.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 543F44842D64062B000373F5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				543F44BA2D640D7C000373F5 /* XCLocalSwiftPackageReference "Services/ColesInspire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 543F448E2D64062B000373F5 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		543F44BA2D640D7C000373F5 /* XCLocalSwiftPackageReference "Services/ColesInspire" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Services/ColesInspire;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		543F44BB2D640D7C000373F5 /* ColesInspire */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ColesInspire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 543F44852D64062B000373F5 /* Project object */;
 }
