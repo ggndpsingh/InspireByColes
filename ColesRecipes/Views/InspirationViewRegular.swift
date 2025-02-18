@@ -20,6 +20,7 @@ struct InspirationViewRegular: View {
         } detail: {
             if let selection {
                 RecipeView(recipe: selection)
+                    .toolbarVisibility(columnVisibility == .detailOnly ? .visible : .hidden, for: .navigationBar)
             }
         }
         .navigationSplitViewStyle(.balanced)
