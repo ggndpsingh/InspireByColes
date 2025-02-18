@@ -2,8 +2,6 @@
 //  ColesRecipesTests.swift
 //  ColesRecipesTests
 //
-//  Created by Gagandeep Singh on 18/2/2025.
-//
 
 import Testing
 @testable import ColesRecipes

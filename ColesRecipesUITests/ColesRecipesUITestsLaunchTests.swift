@@ -2,8 +2,6 @@
 //  ColesRecipesUITestsLaunchTests.swift
 //  ColesRecipesUITests
 //
-//  Created by Gagandeep Singh on 18/2/2025.
-//
 
 import XCTest
 
