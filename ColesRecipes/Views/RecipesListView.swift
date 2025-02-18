@@ -29,7 +29,7 @@ struct RecipesListView: View {
                         }
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(removing: .sidebarToggle)

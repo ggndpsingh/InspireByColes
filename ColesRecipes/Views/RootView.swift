@@ -16,6 +16,7 @@ struct RootView: View {
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @State private var selectedRecipe: Recipe?
+    @State private var searchText: String = ""
 
     private var bindableStore: Bindable<InspirationStore> { .init(store) }
 
@@ -24,7 +25,6 @@ struct RootView: View {
             .task(store.fetchRecipes)
             .environment(store)
             .animation(.default, value: store.recipes)
-            .searchable(text: bindableStore.searchText, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Find what inspires you...")
     }
 
     @ViewBuilder
