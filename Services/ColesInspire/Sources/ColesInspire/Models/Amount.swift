@@ -6,7 +6,7 @@
 import Foundation
 
 public extension Recipe {
-    struct Amount: Decodable, Sendable, Equatable {
+    struct Amount: Decodable, Sendable, Equatable, Hashable {
         public let amountType: AmountType
         public let value: Int
 
@@ -18,7 +18,7 @@ public extension Recipe {
 }
 
 public extension Recipe.Amount {
-    enum AmountType: String, Decodable, Sendable, Equatable  {
+    enum AmountType: String, Decodable, Sendable, Equatable, Hashable  {
         case serves = "Serves"
     }
 }
