@@ -6,7 +6,7 @@
 import Foundation
 
 public extension Recipe {
-    struct Time: Decodable, Sendable {
+    struct Time: Decodable, Sendable, Equatable {
         public let label: String
         public let duration: Duration
         public let note: String?
