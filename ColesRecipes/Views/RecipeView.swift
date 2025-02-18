@@ -20,95 +20,109 @@ struct RecipeView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     titleAndDescription
 
-                    Divider()
-
-                    HStack(spacing: 16) {
+                    HStack(alignment: .top, spacing: 16) {
                         durationView(time: recipe.prepTime)
                         durationView(time: recipe.cookTime)
                         amountView
                     }
 
+                    Divider()
+                        .padding(.horizontal, 48)
+
                     ingredientsView
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 24)
             }
+            .padding(.bottom, 48)
         }
         .ignoresSafeArea(edges: .top)
+        .background(.background.secondary)
     }
 
     private var titleAndDescription: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Capsule().fill(.accent)
-                    .frame(maxHeight: .infinity)
-                    .frame(width: 4)
-
-                Text(recipe.title)
-                    .font(.largeTitle.weight(.bold))
-                    .multilineTextAlignment(.leading)
-            }
+        VStack(alignment: .leading, spacing: 16) {
+            Text(recipe.title)
+                .font(.largeTitle.weight(.bold))
+                .multilineTextAlignment(.leading)
 
             Text(recipe.description)
         }
+        .fontDesign(.serif)
     }
 
     private var amountView: some View {
-        VStack {
-            Text(recipe.amount.amountType.title)
-                .font(.footnote.weight(.bold))
-            Text(recipe.amount.value, format: .number)
-                .font(.callout)
+        VStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 4) {
+                Image(systemName: "person.2")
+                    .imageScale(.large)
+                    .foregroundStyle(.accent)
+
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(recipe.amount.amountType.title)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .textCase(.uppercase)
+
+                    Text(recipe.amount.value,format: .number)
+                }
+            }
         }
-        .pill()
+        .font(.footnote)
+        .fontWeight(.bold)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func durationView(time: Recipe.Time) -> some View {
         VStack(spacing: 0) {
-            Text(time.label)
-                .font(.footnote.weight(.bold))
+            HStack(alignment: .top, spacing: 4) {
+                Image(systemName: "timer")
+                    .imageScale(.large)
+                    .foregroundStyle(.accent)
 
-            Text(
-                time.duration,
-                format: .units(width: .wide, maximumUnitCount: 3)
-            )
-            .font(.callout)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(time.label)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .textCase(.uppercase)
 
-            if let notes = time.note {
-                Text(notes)
-                    .font(.caption)
-            }
-        }
-        .pill()
-    }
+                    Text(
+                        time.duration,
+                        format: .units(width: .narrow, maximumUnitCount: 3)
+                    )
 
-    private var ingredientsView: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
-                HStack(alignment: .top, spacing: 8) {
-                    Text("\u{2022}")
-                    Text(ingredient)
+                    if let notes = time.note {
+                        Text(notes)
+                            .font(.caption2)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
         }
+        .font(.footnote)
+        .fontWeight(.bold)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
-}
 
-struct PillViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(4)
-            .background(.thinMaterial)
-            .clipShape(.capsule)
-            .overlay {
-                Capsule().stroke(.quaternary, lineWidth: 1)
+    private var ingredientsView: some View {
+        VStack {
+            Text("Ingredients:")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.headline)
+                .fontWeight(.bold)
+                .textCase(.uppercase)
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 12)
+
+            VStack(alignment: .leading, spacing: 16) {
+                ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
+                    Text(ingredient)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
-    }
-}
-
-extension View {
-    func pill() -> some View {
-        modifier(PillViewModifier())
+            .fontDesign(.serif)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

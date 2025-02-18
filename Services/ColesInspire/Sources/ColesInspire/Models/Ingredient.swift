@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct Ingredient: Decodable, Sendable {
+public struct Ingredient: Decodable, Sendable, Equatable {
     public let ingredient: String
 
     public init(ingredient: String) {

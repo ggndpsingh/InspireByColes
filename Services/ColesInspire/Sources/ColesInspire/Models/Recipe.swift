@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct Recipe: Identifiable, Decodable, Sendable {
+public struct Recipe: Identifiable, Decodable, Sendable, Equatable {
     public let id: String
     public let title: String
     public let description: String

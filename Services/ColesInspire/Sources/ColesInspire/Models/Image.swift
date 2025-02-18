@@ -6,7 +6,7 @@
 import Foundation
 
 public extension Recipe {
-    struct Image: Decodable, Sendable {
+    struct Image: Decodable, Sendable, Equatable {
         public let path: String
         public let alt: String
 

@@ -17,12 +17,13 @@ struct RecipeCardView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Recipe")
-                    .font(.footnote.weight(.medium))
+                    .font(.caption.weight(.medium))
                     .textCase(.uppercase)
                     .foregroundStyle(.accent)
 
                 Text(recipe.title)
                     .lineLimit(2)
+                    .font(.footnote)
             }
             .padding(8)
         }

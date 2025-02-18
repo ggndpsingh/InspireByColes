@@ -13,12 +13,16 @@ struct InspirationView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(InspirationStore.self) private var store
 
+    @Namespace private var namespace
+
+    @State private var selectedRecipe: Recipe?
+
     private var columns: [GridItem] {
         switch horizontalSizeClass {
         case .regular:
             [GridItem(.adaptive(minimum: 240, maximum: 360))]
         default:
-            [GridItem(.adaptive(minimum: 120, maximum: 240))]
+            [GridItem(.adaptive(minimum: 160, maximum: 240))]
         }
     }
 
@@ -30,6 +34,10 @@ struct InspirationView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(store.recipes) { recipe in
                         RecipeCardView(recipe: recipe)
+                            .matchedTransitionSource(id: recipe.id, in: namespace)
+                            .onTapGesture {
+                                selectedRecipe = recipe
+                            }
                     }
                 }
                 .padding()
@@ -50,11 +58,17 @@ struct InspirationView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 10)
                         }
+                        .offset(y: -4)
                     }
                 }
             }
         }
+        .animation(.default, value: store.recipes)
         .searchable(text: bindableStore.searchText, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Find what inspires you...")
+        .sheet(item: $selectedRecipe) { recipe in
+            RecipeView(recipe: recipe)
+                .navigationTransition(.zoom(sourceID: recipe.id, in: namespace))
+        }
     }
 }
 
