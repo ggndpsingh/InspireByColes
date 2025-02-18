@@ -17,6 +17,9 @@ struct ContentView: View {
     var body: some View {
         List(recipes) { recipe in
             VStack(alignment: .leading, spacing: 16) {
+                AsyncImageView(url: recipe.thumbnail.url)
+                    .aspectRatio(480/280, contentMode: .fit)
+                    .clipShape(.rect(cornerRadius: 12, style: .continuous))
                 Text(recipe.title)
             }
         }
@@ -27,6 +30,12 @@ struct ContentView: View {
                 print(error)
             }
         }
+    }
+}
+
+extension Recipe.Image {
+    var url: URL {
+        InspirationClient.baseURL.appending(path: path)
     }
 }
 

@@ -4,6 +4,8 @@
 import Foundation
 
 public final class InspirationClient: InspirationProviding {
+    public static let baseURL: URL = .init(string: "https://www.coles.com.au")!
+
     private let service = InspirationService()
 
     public init() {}
