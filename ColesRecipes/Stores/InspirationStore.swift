@@ -10,18 +10,27 @@ import ColesInspire
 @Observable
 final class InspirationStore {
 
-    let client: InspirationProviding
+    private let client: InspirationProviding
+
+    private var allRecipes: [Recipe] = []
+
+    var searchText: String = ""
 
     init(client: InspirationProviding) {
         self.client = client
     }
 
-    private(set) var recipes: [Recipe] = []
+    var recipes: [Recipe] {
+        if !searchText.isEmpty {
+            return allRecipes.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        }
+        return allRecipes
+    }
 
     @Sendable
     func fetchRecipes() async {
         do {
-            recipes =  try await client.findInspiration()
+            allRecipes =  try await client.findInspiration()
         } catch {
             print(error)
         }

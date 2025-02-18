@@ -22,16 +22,21 @@ struct InspirationView: View {
         }
     }
 
+    private var bindableStore: Bindable<InspirationStore> { .init(store) }
+
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns) {
-                ForEach(store.recipes) { recipe in
-                    RecipeCardView(recipe: recipe)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(store.recipes) { recipe in
+                        RecipeCardView(recipe: recipe)
+                    }
                 }
+                .padding()
             }
-            .padding()
+            .task(store.fetchRecipes)
         }
-        .task(store.fetchRecipes)
+        .searchable(text: bindableStore.searchText, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Find what inspires you...")
     }
 }
 
