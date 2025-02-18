@@ -46,20 +46,10 @@ struct InspirationView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    VStack(alignment: .center, spacing: 0) {
-                        Text("Inspiration")
-                            .font(.headline)
-                        HStack(spacing: 2) {
-                            Text("by")
-                                .font(.caption2)
-
-                            Image(.colesLogo)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 10)
-                        }
-                        .offset(y: -4)
-                    }
+                    Image(.inspireLogo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 8)
                 }
             }
         }
