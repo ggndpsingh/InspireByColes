@@ -1,0 +1,26 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "by" : {
+
+    },
+    "Find what inspires you..." : {
+
+    },
+    "Inspiration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inspiration"
+          }
+        }
+      }
+    },
+    "Recipe" : {
+
+    }
+  },
+  "version" : "1.0"
+}
