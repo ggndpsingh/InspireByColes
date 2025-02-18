@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import ColesInspire
 
 struct ContentView: View {
+
+    private let client = InspirationClient()
+
+    @State private var recipes: [Recipe] = []
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List(recipes) { recipe in
+            Text(recipe.title)
         }
-        .padding()
+        .task {
+            do {
+                recipes = try await client.findInspiration()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
