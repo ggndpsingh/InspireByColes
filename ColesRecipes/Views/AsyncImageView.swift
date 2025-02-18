@@ -15,6 +15,7 @@ struct AsyncImageView: View {
 
     var body: some View {
         content
+            .aspectRatio(480/288, contentMode: .fit)
             .task(loadImage)
             .onChange(of: url) {
                 Task {
