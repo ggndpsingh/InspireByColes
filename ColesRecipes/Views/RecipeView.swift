@@ -27,6 +27,8 @@ struct RecipeView: View {
                         durationView(time: recipe.cookTime)
                         amountView
                     }
+
+                    ingredientsView
                 }
                 .padding(.horizontal, 16)
             }
@@ -77,6 +79,17 @@ struct RecipeView: View {
             }
         }
         .pill()
+    }
+
+    private var ingredientsView: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
+                HStack(alignment: .top, spacing: 8) {
+                    Text("\u{2022}")
+                    Text(ingredient)
+                }
+            }
+        }
     }
 }
 
