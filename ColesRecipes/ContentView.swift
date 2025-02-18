@@ -16,7 +16,9 @@ struct ContentView: View {
 
     var body: some View {
         List(recipes) { recipe in
-            Text(recipe.title)
+            VStack(alignment: .leading, spacing: 16) {
+                Text(recipe.title)
+            }
         }
         .task {
             do {
