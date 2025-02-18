@@ -25,6 +25,8 @@ struct RecipeView: View {
                         durationView(time: recipe.cookTime)
                         amountView
                     }
+                    .contentTransition(.identity)
+                    .compositingGroup()
 
                     Divider()
                         .padding(.horizontal, 48)
@@ -120,6 +122,7 @@ struct RecipeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
+            .contentTransition(.opacity)
             .fontDesign(.serif)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
