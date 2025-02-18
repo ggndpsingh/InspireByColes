@@ -26,6 +26,11 @@ struct InspirationViewRegular: View {
         .navigationSplitViewStyle(.balanced)
         .animation(.snappy, value: selection)
         .onChange(of: dataState.value, recipesDidChange)
+        .onAppear {
+            if selection == nil {
+                selection = dataState.value?.first
+            }
+        }
     }
 
     private func recipesDidChange(oldValue: [Recipe]?, newValue: [Recipe]?) {
