@@ -31,7 +31,6 @@ struct RecipesListView: View {
                     Text("Failed")
                 }
             }
-            .padding()
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -42,6 +41,7 @@ struct RecipesListView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .padding(.horizontal)
         .refreshable {
             await store.fetchRecipes()
         }
@@ -68,11 +68,9 @@ struct RecipesListView: View {
 #Preview("Loaded") {
     @Previewable @Namespace var namespace
     RecipesListView(dataState: .success(Recipe.placeholders), selection: .constant(nil), namespace: namespace)
-        .environment(InspirationStore(client: InspirationClient()))
 }
 
 #Preview("Loading") {
     @Previewable @Namespace var namespace
     RecipesListView(dataState: .loading, selection: .constant(nil), namespace: namespace)
-        .environment(InspirationStore(client: InspirationClient()))
 }
