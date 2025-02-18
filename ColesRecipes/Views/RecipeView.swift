@@ -13,10 +13,8 @@ struct RecipeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                StretchableHeader {
-                    AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
-                }
-                .aspectRatio(480/288, contentMode: .fill)
+                AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                    .frame(minHeight: 240)
 
                 VStack(alignment: .leading, spacing: 24) {
                     titleAndDescription
@@ -66,7 +64,7 @@ struct RecipeView: View {
                         .foregroundStyle(.secondary)
                         .textCase(.uppercase)
 
-                    Text("\(recipe.amount.value) people")
+                    Text(recipe.amount.value,format: .number)
                 }
             }
         }
@@ -111,7 +109,7 @@ struct RecipeView: View {
 
     private var ingredientsView: some View {
         VStack(spacing: 12) {
-            Text("Ingredients")
+            Text("Ingredients:")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fontWeight(.bold)
                 .textCase(.uppercase)
@@ -119,11 +117,8 @@ struct RecipeView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
-                    HStack(alignment: .top) {
-                        Text("•")
-                        Text(ingredient)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(ingredient)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .contentTransition(.opacity)
