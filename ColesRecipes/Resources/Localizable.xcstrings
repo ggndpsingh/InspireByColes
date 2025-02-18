@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld people" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld person"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld people"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Failed" : {
 
     },
@@ -20,6 +42,17 @@
     },
     "Recipe" : {
 
+    },
+    "Serves" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serves"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
