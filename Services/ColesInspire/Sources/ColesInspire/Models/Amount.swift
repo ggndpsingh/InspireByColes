@@ -10,9 +10,16 @@ public extension Recipe {
         public let amountType: AmountType
         public let value: Int
 
-        public enum AmountType: String, Decodable, Sendable, Equatable  {
-            case serves = "Serves"
+        public init(amountType: AmountType, value: Int) {
+            self.amountType = amountType
+            self.value = value
         }
+    }
+}
+
+public extension Recipe.Amount {
+    enum AmountType: String, Decodable, Sendable, Equatable  {
+        case serves = "Serves"
     }
 }
 

@@ -41,6 +41,26 @@ public struct Recipe: Identifiable, Decodable, Sendable {
 
         self.ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
     }
+
+    public init(
+        id: String,
+        title: String,
+        description: String,
+        thumbnail: Recipe.Image,
+        amount: Amount,
+        prepTime: Time,
+        cookTime: Time,
+        ingredients: [Ingredient]
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.thumbnail = thumbnail
+        self.amount = amount
+        self.prepTime = prepTime
+        self.cookTime = cookTime
+        self.ingredients = ingredients
+    }
 }
 
 extension Recipe {
