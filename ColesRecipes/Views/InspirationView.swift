@@ -35,6 +35,24 @@ struct InspirationView: View {
                 .padding()
             }
             .task(store.fetchRecipes)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack(alignment: .center, spacing: 0) {
+                        Text("Inspiration")
+                            .font(.headline)
+                        HStack(spacing: 2) {
+                            Text("by")
+                                .font(.caption2)
+
+                            Image(.colesLogo)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 10)
+                        }
+                    }
+                }
+            }
         }
         .searchable(text: bindableStore.searchText, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Find what inspires you...")
     }
