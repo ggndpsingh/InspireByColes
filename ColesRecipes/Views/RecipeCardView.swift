@@ -19,7 +19,7 @@ struct RecipeCardView: View {
                 Text("Recipe")
                     .font(.footnote.weight(.medium))
                     .textCase(.uppercase)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.accent)
 
                 Text(recipe.title)
                     .lineLimit(2)
