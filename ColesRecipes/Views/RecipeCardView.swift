@@ -12,8 +12,8 @@ struct RecipeCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AsyncImageView(url: recipe.thumbnail.url)
-                .aspectRatio(480/280, contentMode: .fit)
+            AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                .aspectRatio(480/288, contentMode: .fit)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Recipe")
@@ -23,7 +23,8 @@ struct RecipeCardView: View {
 
                 Text(recipe.title)
                     .lineLimit(2)
-                    .font(.footnote)
+                    .font(.body)
+                    .fontDesign(.serif)
             }
             .padding(8)
         }
