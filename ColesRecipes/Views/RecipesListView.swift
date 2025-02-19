@@ -49,7 +49,7 @@ struct RecipesListView: View {
     }
 
     private func content(recipes: [Recipe]) -> some View {
-        LazyVGrid(columns: columns) {
+        LazyVGrid(columns: columns, spacing: 16) {
             ForEach(recipes) { recipe in
                 RecipeCardView(recipe: recipe)
                     .matchedTransitionSource(id: recipe.id, in: namespace)
@@ -62,7 +62,7 @@ struct RecipesListView: View {
     }
 
     private var redactedView: some View {
-        LazyVGrid(columns: columns) {
+        LazyVGrid(columns: columns, spacing: 16) {
             ForEach(Recipe.mocks, id: \.title) { recipe in
                 RecipeCardView(recipe: recipe)
                     .redacted(reason: .placeholder)
