@@ -39,6 +39,5 @@ struct InspirationViewCompact: View {
 }
 
 #Preview {
-    RootView()
-        .environment(InspirationStore(client: InspirationClient()))
+    RootView(client: MockInspirationClient())
 }

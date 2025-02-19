@@ -12,12 +12,16 @@ struct RootView: View {
 
     @Namespace private var namespace
 
-    @State private var store = InspirationStore(client: InspirationClient())
+    @State private var store: InspirationStore
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @State private var selectedRecipe: Recipe?
     @State private var searchText: String = ""
 
     private var bindableStore: Bindable<InspirationStore> { .init(store) }
+
+    init(client: InspirationProviding) {
+        self._store = .init(initialValue: .init(client: client))
+    }
 
     var body: some View {
         content
@@ -37,7 +41,10 @@ struct RootView: View {
     }
 }
 
-#Preview {
-    RootView()
-        .environment(InspirationStore(client: InspirationClient()))
+#Preview("Populated") {
+    RootView(client: MockInspirationClient())
+}
+
+#Preview("Throwing") {
+    RootView(client: MockInspirationClient(state: .error))
 }

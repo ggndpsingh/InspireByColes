@@ -21,14 +21,16 @@ struct RecipesListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns) {
-                switch dataState {
-                case .loading:
-                    redactedView
-                case .success(let value):
-                    content(recipes: value)
-                case .failure:
-                    Text("Failed")
+            switch dataState {
+            case .loading:
+                redactedView
+            case .success(let value):
+                content(recipes: value)
+            case .failure(let error):
+                EmptyStateView(error: error) {
+                    Task {
+                        await store.fetchRecipes()
+                    }
                 }
             }
         }
@@ -41,36 +43,50 @@ struct RecipesListView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal)
         .refreshable {
             await store.fetchRecipes()
         }
     }
 
     private func content(recipes: [Recipe]) -> some View {
-        ForEach(recipes) { recipe in
-            RecipeCardView(recipe: recipe)
-                .matchedTransitionSource(id: recipe.id, in: namespace)
-                .onTapGesture {
-                    selection = recipe
-                }
+        LazyVGrid(columns: columns) {
+            ForEach(recipes) { recipe in
+                RecipeCardView(recipe: recipe)
+                    .matchedTransitionSource(id: recipe.id, in: namespace)
+                    .onTapGesture {
+                        selection = recipe
+                    }
+            }
         }
+        .padding()
     }
 
     private var redactedView: some View {
-        ForEach(Recipe.placeholders, id: \.title) { recipe in
-            RecipeCardView(recipe: recipe)
-                .redacted(reason: .placeholder)
+        LazyVGrid(columns: columns) {
+            ForEach(Recipe.mocks, id: \.title) { recipe in
+                RecipeCardView(recipe: recipe)
+                    .redacted(reason: .placeholder)
+            }
         }
+        .padding()
     }
 }
 
 #Preview("Loaded") {
     @Previewable @Namespace var namespace
-    RecipesListView(dataState: .success(Recipe.placeholders), selection: .constant(nil), namespace: namespace)
+    RecipesListView(dataState: .success(Recipe.mocks), selection: .constant(nil), namespace: namespace)
+        .environment(InspirationStore(client: MockInspirationClient()))
 }
 
 #Preview("Loading") {
     @Previewable @Namespace var namespace
     RecipesListView(dataState: .loading, selection: .constant(nil), namespace: namespace)
+        .environment(InspirationStore(client: MockInspirationClient()))
+}
+
+
+#Preview("Failed") {
+    @Previewable @Namespace var namespace
+    RecipesListView(dataState: .failure(URLError(.badServerResponse)), selection: .constant(nil), namespace: namespace)
+        .environment(InspirationStore(client: MockInspirationClient()))
 }

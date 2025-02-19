@@ -4,9 +4,6 @@
     "•" : {
 
     },
-    "Failed" : {
-
-    },
     "Ingredients" : {
 
     },
@@ -20,6 +17,15 @@
           }
         }
       }
+    },
+    "Our creative chef is off grabbing a coffee. Fresh ideas are brewing—check back soon!" : {
+
+    },
+    "Recipe Muse on a Coffee Break!" : {
+
+    },
+    "Retry" : {
+
     },
     "Serves" : {
       "extractionState" : "manual",
