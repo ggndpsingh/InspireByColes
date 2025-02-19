@@ -40,6 +40,7 @@ struct RecipesListView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .padding(.bottom, 8)
+                    .accessibilityHidden(true)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

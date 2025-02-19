@@ -45,6 +45,7 @@ struct DetailLabelView: View {
         .contentTransition(.identity)
         .font(.footnote)
         .fontWeight(.bold)
+        .accessibilityElement(children: .combine)
     }
 }
 

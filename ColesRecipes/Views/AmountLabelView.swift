@@ -18,6 +18,8 @@ struct AmountLabelView: View {
             detail: amount.value.formatted(),
             scale: scale
         )
+        .accessibilityLabel(Text(amount.amountType.title))
+        .accessibilityValue(Text(amount.value.formatted()))
     }
 }
 

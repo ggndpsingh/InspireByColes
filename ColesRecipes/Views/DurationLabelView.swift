@@ -19,6 +19,8 @@ struct DurationLabelView: View {
             note: time.note,
             scale: scale
         )
+        .accessibilityLabel(Text(time.label + " time"))
+        .accessibilityValue(time.duration.formatted(.units(width: .wide)))
     }
 }
 

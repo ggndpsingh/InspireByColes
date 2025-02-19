@@ -77,6 +77,8 @@ struct RecipeView: View {
                         Text(ingredient)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(ingredient)
                 }
             }
             .contentTransition(.opacity)
