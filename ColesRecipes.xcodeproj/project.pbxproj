@@ -33,9 +33,22 @@
 		543F44A72D64062D000373F5 /* ColesRecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColesRecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		541BD7762D65FD9000D2392F /* Exceptions for "ColesRecipes" folder in "ColesRecipesUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AccessibilityIdentifiers/AccessibilityIdentifiers.swift,
+			);
+			target = 543F44A62D64062D000373F5 /* ColesRecipesUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		543F448F2D64062B000373F5 /* ColesRecipes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				541BD7762D65FD9000D2392F /* Exceptions for "ColesRecipes" folder in "ColesRecipesUITests" target */,
+			);
 			path = ColesRecipes;
 			sourceTree = "<group>";
 		};

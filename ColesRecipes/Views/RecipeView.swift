@@ -32,6 +32,7 @@ struct RecipeView: View {
             }
             .padding(.bottom, 48)
         }
+        .accessibilityIdentifier(AccessibilityIdentifiers.Recipe.scrollView)
         .ignoresSafeArea(edges: .top)
         .background(.background.secondary)
     }
@@ -41,8 +42,10 @@ struct RecipeView: View {
             Text(recipe.title)
                 .font(.largeTitle.weight(.bold))
                 .multilineTextAlignment(.leading)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Recipe.title)
 
             Text(recipe.description)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Recipe.description)
         }
         .fontDesign(.serif)
     }
@@ -69,6 +72,7 @@ struct RecipeView: View {
                 .fontWeight(.bold)
                 .textCase(.uppercase)
                 .foregroundStyle(.secondary)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Recipe.ingredients)
 
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in

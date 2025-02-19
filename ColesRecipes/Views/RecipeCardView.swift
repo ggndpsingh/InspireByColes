@@ -15,7 +15,10 @@ struct RecipeCardView: View {
             ZStack(alignment: .topLeading) {
                 AsyncImageView(path: recipe.thumbnail.path, alt: recipe.thumbnail.alt)
                     .aspectRatio(480/288, contentMode: .fit)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.List.Card.image)
+
                 detailsView
+                    .accessibilityIdentifier(AccessibilityIdentifiers.List.Card.detail)
             }
 
             Text(recipe.title)
@@ -23,6 +26,7 @@ struct RecipeCardView: View {
                 .font(.body)
                 .fontDesign(.serif)
                 .padding(8)
+                .accessibilityIdentifier(AccessibilityIdentifiers.List.Card.title)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.background.secondary)
