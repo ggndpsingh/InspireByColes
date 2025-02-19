@@ -75,15 +75,7 @@ struct RecipeView: View {
                 .accessibilityIdentifier(AccessibilityIdentifiers.Recipe.ingredients)
 
             VStack(alignment: .leading, spacing: 16) {
-                ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
-                    HStack(alignment: .top) {
-                        Text("•")
-                        Text(ingredient)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel(ingredient)
-                }
+                ForEach(recipe.ingredients, id: \.self, content: IngredientView.init)
             }
             .contentTransition(.opacity)
             .fontDesign(.serif)
@@ -102,4 +94,5 @@ extension Recipe.Amount.AmountType {
 
 #Preview {
     RecipeView(recipe: .mock)
+        .environment(InspirationStore(client: MockInspirationClient()))
 }

@@ -29,7 +29,7 @@ final class MockInspirationClient: InspirationProviding {
     }
 
     func buildURL(relativePath: String) -> URL {
-        let baseURL = URL(string: "http://coles.com.au")!
+        let baseURL = URL(string: "https://coles.com.au")!
         return baseURL.appending(path: relativePath)
     }
 }
@@ -49,7 +49,22 @@ extension Recipe {
             amount: .init(amountType: .serves, value: 4),
             prepTime: .init(label: "Prep", durationAsMinutes: 20, note: "+ cooling time"),
             cookTime: .init(label: "Cooking", durationAsMinutes: 30),
-            ingredients: []
+            ingredients: [
+                .init(ingredient: "2 bunches Dutch carrots, trimmed"),
+                .init(ingredient: "2/3 cup (160ml) olive oil"),
+                .init(ingredient: "1/2 Coles Finest by Laurent White Sourdough Vienna, day-old, cut into 4cm pieces"),
+                .init(ingredient: "1/4 cup (20g) finely grated parmesan"),
+                .init(ingredient: "1/2 lemon, rind finely grated, juiced"),
+                .init(ingredient: "2 garlic cloves, finely chopped"),
+                .init(ingredient: "1/2 cup (125ml) buttermilk"),
+                .init(ingredient: "1 1/2 tbs apple cider vinegar"),
+                .init(ingredient: "1/2 bunch kale, leaves coarsely torn"),
+                .init(ingredient: "1/2 cup mint leaves"),
+                .init(ingredient: "1/2 cup flat-leaf parsley leaves"),
+                .init(ingredient: "2 apples, thinly sliced"),
+                .init(ingredient: "2 spring onions, thinly sliced"),
+                .init(ingredient: "1/4 cup (50g) pepitas (pumpkin seeds), toasted")
+            ]
         )
     }
 

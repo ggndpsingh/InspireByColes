@@ -39,3 +39,25 @@ import Testing
     #expect(recipe.cookTime == .init(label: "Cooking", durationAsMinutes: 45))
     #expect(recipe.totalTime.duration == .seconds(70 * 60))
 }
+
+@Test func granularIngredients() {
+    let string1 = "1 cup (250ml) extra virgin olive oil, divided"
+    let ingredient1 = Ingredient(ingredient: string1)
+
+    #expect(!ingredient1.notes.isEmpty)
+    #expect(ingredient1.item == "1 cup (250ml) extra virgin olive oil")
+    #expect(ingredient1.notes == "divided")
+
+    let string2 = "1/2 Coles Finest by Laurent White Sourdough Vienna, day-old, cut into 4cm pieces"
+    let ingredient2 = Ingredient(ingredient: string2)
+
+    #expect(!ingredient2.notes.isEmpty)
+    #expect(ingredient2.item == "1/2 Coles Finest by Laurent White Sourdough Vienna")
+    #expect(ingredient2.notes == "day-old, cut into 4cm pieces")
+
+    let string3 = "1/2 cup (125ml) buttermilk"
+    let ingredient3 = Ingredient(ingredient: string3)
+
+    #expect(ingredient3.item == "1/2 cup (125ml) buttermilk")
+    #expect(ingredient3.notes.isEmpty)
+}
