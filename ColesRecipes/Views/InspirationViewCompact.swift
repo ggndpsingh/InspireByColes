@@ -8,18 +8,16 @@ import ColesInspire
 
 struct InspirationViewCompact: View {
 
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
-    let recipes: [Recipe]
+    let dataState: DataState<[Recipe]>
     @Namespace private var namespace
 
-    @State private var selectedRecipe: Recipe?
+    @Binding var selection: Recipe?
 
     var body: some View {
         NavigationStack {
-            RecipesListView(recipes: recipes, selection: $selectedRecipe, namespace: namespace)
+            RecipesListView(dataState: dataState, selection: $selection, namespace: namespace)
         }
-        .sheet(item: $selectedRecipe) { recipe in
+        .sheet(item: $selection) { recipe in
             RecipeView(recipe: recipe)
                 .navigationTransition(.zoom(sourceID: recipe.id, in: namespace))
         }

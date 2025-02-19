@@ -10,20 +10,10 @@ struct AsyncImageView: View {
     let url: URL
 
     var body: some View {
-        AsyncImage(url: url) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-            } else if phase.error != nil {
-                ZStack {
-                    Color.gray.opacity(0.8)
-                    Image(systemName: "photo")
-                        .imageScale(.large)
-                        .foregroundStyle(.background)
-                }
-            } else {
-                Placeholder()
-            }
+        AsyncImage(url: url) { image in
+            image.resizable()
+        } placeholder: {
+            Placeholder()
         }
     }
 }

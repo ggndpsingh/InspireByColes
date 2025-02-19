@@ -8,12 +8,11 @@ import ColesInspire
 
 struct RootView: View {
 
-    @State private var store = InspirationStore(client: InspirationClient())
-
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Namespace private var namespace
 
+    @State private var store = InspirationStore(client: InspirationClient())
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @State private var selectedRecipe: Recipe?
     @State private var searchText: String = ""
@@ -22,18 +21,18 @@ struct RootView: View {
 
     var body: some View {
         content
-            .task(store.fetchRecipes)
+            .onViewDidLoad(store.fetchRecipes)
             .environment(store)
-            .animation(.default, value: store.recipes)
+            .animation(.default, value: store.recipesDataState)
     }
 
     @ViewBuilder
     private var content: some View {
         switch horizontalSizeClass {
         case .regular:
-            InspirationViewRegular(recipes: store.recipes)
+            InspirationViewRegular(dataState: store.recipesDataState, selection: $selectedRecipe)
         default:
-            InspirationViewCompact(recipes: store.recipes)
+            InspirationViewCompact(dataState: store.recipesDataState, selection: $selectedRecipe)
         }
     }
 }

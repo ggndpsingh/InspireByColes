@@ -8,9 +8,10 @@ import ColesInspire
 
 struct RecipesListView: View {
 
+    @Environment(InspirationStore.self) private var store
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    let recipes: [Recipe]
+    let dataState: DataState<[Recipe]>
     @Binding var selection: Recipe?
     let namespace: Namespace.ID
 
@@ -21,31 +22,46 @@ struct RecipesListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(recipes) { recipe in
-                    RecipeCardView(recipe: recipe)
-                        .matchedTransitionSource(id: recipe.id, in: namespace)
-                        .onTapGesture {
-                            selection = recipe
-                        }
+                switch dataState {
+                case .loading:
+                    redactedView
+                case .success(let value):
+                    content(recipes: value)
+                case .failure:
+                    Text("Failed")
                 }
             }
-            .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar(removing: .sidebarToggle)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Image(.inspireLogo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.bottom, 8)
-            }
+        .padding()
+        .refreshable {
+            await store.fetchRecipes()
         }
-        .animation(.default, value: recipes)
+    }
+
+    private func content(recipes: [Recipe]) -> some View {
+        ForEach(recipes) { recipe in
+            RecipeCardView(recipe: recipe)
+                .matchedTransitionSource(id: recipe.id, in: namespace)
+                .onTapGesture {
+                    selection = recipe
+                }
+        }
+    }
+
+    private var redactedView: some View {
+        ForEach(Recipe.placeholders, id: \.title) { recipe in
+            RecipeCardView(recipe: recipe)
+                .redacted(reason: .placeholder)
+        }
     }
 }
 
-#Preview {
+#Preview("Loaded") {
     @Previewable @Namespace var namespace
-    RecipesListView(recipes: [.mock], selection: .constant(nil), namespace: namespace)
+    RecipesListView(dataState: .success(Recipe.placeholders), selection: .constant(nil), namespace: namespace)
+}
+
+#Preview("Loading") {
+    @Previewable @Namespace var namespace
+    RecipesListView(dataState: .loading, selection: .constant(nil), namespace: namespace)
 }

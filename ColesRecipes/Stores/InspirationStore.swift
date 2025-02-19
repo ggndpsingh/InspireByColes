@@ -12,7 +12,7 @@ final class InspirationStore {
 
     private let client: InspirationProviding
 
-    private(set) var recipes: [Recipe] = []
+    private(set) var recipesDataState: DataState<[Recipe]> = .loading
 
     init(client: InspirationProviding) {
         self.client = client
@@ -20,10 +20,14 @@ final class InspirationStore {
 
     @Sendable
     func fetchRecipes() async {
+        recipesDataState = .loading
+
         do {
-            recipes =  try await client.findInspiration()
+            let recipes = try await client.findInspiration()
+            recipesDataState = .success(recipes)
         } catch {
             print(error)
+            recipesDataState = .failure(error)
         }
     }
 }

@@ -8,30 +8,28 @@ import ColesInspire
 
 struct InspirationViewRegular: View {
 
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
-    let recipes: [Recipe]
+    let dataState: DataState<[Recipe]>
     @Namespace private var namespace
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
-    @State private var selectedRecipe: Recipe?
+    @Binding var selection: Recipe?
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            RecipesListView(recipes: recipes, selection: $selectedRecipe, namespace: namespace)
+            RecipesListView(dataState: dataState, selection: $selection, namespace: namespace)
         } detail: {
-            if let selectedRecipe {
-                RecipeView(recipe: selectedRecipe)
+            if let selection {
+                RecipeView(recipe: selection)
             }
         }
         .navigationSplitViewStyle(.balanced)
-        .animation(.snappy, value: selectedRecipe)
-        .onChange(of: recipes, recipesDidChange)
+        .animation(.snappy, value: selection)
+        .onChange(of: dataState.value, recipesDidChange)
     }
 
-    private func recipesDidChange(oldValue: [Recipe], newValue: [Recipe]) {
-        if oldValue.isEmpty, !newValue.isEmpty {
-            selectedRecipe = newValue.first
+    private func recipesDidChange(oldValue: [Recipe]?, newValue: [Recipe]?) {
+        if oldValue == nil, newValue != nil {
+            selection = newValue?.first
         }
     }
 }
