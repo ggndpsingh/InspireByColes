@@ -13,14 +13,15 @@ struct RecipeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                AsyncImageView(url: recipe.thumbnail.url)
-                    .aspectRatio(480/280, contentMode: .fit)
-                    .frame(minHeight: 240)
+                StretchableHeader {
+                    AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                }
+                .aspectRatio(480/288, contentMode: .fill)
 
                 VStack(alignment: .leading, spacing: 24) {
                     titleAndDescription
 
-                    HStack(alignment: .top, spacing: 16) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 200))], alignment: .leading, spacing: 16) {
                         durationView(time: recipe.prepTime)
                         durationView(time: recipe.cookTime)
                         amountView
@@ -65,13 +66,13 @@ struct RecipeView: View {
                         .foregroundStyle(.secondary)
                         .textCase(.uppercase)
 
-                    Text(recipe.amount.value,format: .number)
+                    Text("\(recipe.amount.value) people")
                 }
             }
         }
         .font(.footnote)
         .fontWeight(.bold)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func durationView(time: Recipe.Time) -> some View {
@@ -101,25 +102,28 @@ struct RecipeView: View {
                 }
             }
         }
+        .geometryGroup()
+        .contentTransition(.identity)
         .font(.footnote)
         .fontWeight(.bold)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private var ingredientsView: some View {
-        VStack {
-            Text("Ingredients:")
+        VStack(spacing: 12) {
+            Text("Ingredients")
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.headline)
                 .fontWeight(.bold)
                 .textCase(.uppercase)
                 .foregroundStyle(.secondary)
-                .padding(.bottom, 12)
 
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
-                    Text(ingredient)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack(alignment: .top) {
+                        Text("•")
+                        Text(ingredient)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .contentTransition(.opacity)
