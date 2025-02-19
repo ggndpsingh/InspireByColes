@@ -1,32 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%lld people" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld person"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%lld people"
-                }
-              }
-            }
-          }
-        }
-      }
+    "•" : {
+
     },
     "Failed" : {
 
     },
-    "Ingredients:" : {
+    "Ingredients" : {
 
     },
     "Inspiration" : {
@@ -40,11 +21,8 @@
         }
       }
     },
-    "Recipe" : {
-
-    },
     "Serves" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {

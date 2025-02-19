@@ -26,7 +26,6 @@ final class InspirationStore {
             let recipes = try await client.findInspiration()
             recipesDataState = .success(recipes)
         } catch {
-            print(error)
             recipesDataState = .failure(error)
         }
     }

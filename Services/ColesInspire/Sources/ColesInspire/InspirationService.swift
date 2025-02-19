@@ -23,6 +23,7 @@ struct InspirationService {
         let request = URLRequest(url: URL(string: "http://www.coles.com.au/content/dam/coles/inspire-create")!)
         let (data, _) = try await urlSession.data(for: request)
 
+        // Mock loading state for a while.
         try? await Task.sleep(for: .seconds(1))
         return data
     }

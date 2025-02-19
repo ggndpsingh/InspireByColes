@@ -11,21 +11,18 @@ struct RecipeCardView: View {
     let recipe: Recipe
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Recipe")
-                    .font(.caption.weight(.medium))
-                    .textCase(.uppercase)
-                    .foregroundStyle(.accent)
-
-                Text(recipe.title)
-                    .lineLimit(2)
-                    .font(.body)
-                    .fontDesign(.serif)
+        VStack(alignment: .leading, spacing: 0) {
+            ZStack(alignment: .topLeading) {
+                AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                    .aspectRatio(480/288, contentMode: .fit)
+                detailsView
             }
-            .padding(8)
+
+            Text(recipe.title)
+                .lineLimit(2)
+                .font(.body)
+                .fontDesign(.serif)
+                .padding(8)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.background.secondary)
@@ -34,6 +31,17 @@ struct RecipeCardView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(.quaternary, lineWidth: 1)
         }
+    }
+
+    private var detailsView: some View {
+        HStack(spacing: 12) {
+            DurationLabelView(time: recipe.totalTime, scale: .s)
+        }
+        .padding(4)
+        .background {
+            Capsule().fill(.thinMaterial)
+        }
+        .padding(4)
     }
 }
 

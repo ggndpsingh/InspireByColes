@@ -13,19 +13,15 @@ struct RecipeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
-                    .frame(minHeight: 240)
+                StretchableHeader {
+                    AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                }
+                .aspectRatio(480/288, contentMode: .fill)
 
                 VStack(alignment: .leading, spacing: 24) {
                     titleAndDescription
 
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 200))], alignment: .leading, spacing: 16) {
-                        durationView(time: recipe.prepTime)
-                        durationView(time: recipe.cookTime)
-                        amountView
-                    }
-                    .contentTransition(.identity)
-                    .compositingGroup()
+                    detailsView
 
                     Divider()
                         .padding(.horizontal, 48)
@@ -51,65 +47,24 @@ struct RecipeView: View {
         .fontDesign(.serif)
     }
 
-    private var amountView: some View {
-        VStack(spacing: 0) {
-            HStack(alignment: .top, spacing: 4) {
-                Image(systemName: "person.2")
-                    .imageScale(.large)
-                    .foregroundStyle(.accent)
+    private var detailsView: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 200))], alignment: .leading, spacing: 16) {
+            DurationLabelView(time: recipe.prepTime)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(recipe.amount.amountType.title)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .textCase(.uppercase)
+            DurationLabelView(time: recipe.cookTime)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
-                    Text(recipe.amount.value,format: .number)
-                }
-            }
+            AmountLabelView(amount: recipe.amount, scale: .l)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        .font(.footnote)
-        .fontWeight(.bold)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    private func durationView(time: Recipe.Time) -> some View {
-        VStack(spacing: 0) {
-            HStack(alignment: .top, spacing: 4) {
-                Image(systemName: "timer")
-                    .imageScale(.large)
-                    .foregroundStyle(.accent)
-
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(time.label)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .textCase(.uppercase)
-
-                    Text(
-                        time.duration,
-                        format: .units(width: .narrow, maximumUnitCount: 3)
-                    )
-
-                    if let notes = time.note {
-                        Text(notes)
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-            }
-        }
-        .geometryGroup()
         .contentTransition(.identity)
-        .font(.footnote)
-        .fontWeight(.bold)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .compositingGroup()
     }
 
     private var ingredientsView: some View {
         VStack(spacing: 12) {
-            Text("Ingredients:")
+            Text("Ingredients")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fontWeight(.bold)
                 .textCase(.uppercase)
@@ -117,8 +72,11 @@ struct RecipeView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(recipe.ingredients.map(\.ingredient), id: \.self) { ingredient in
-                    Text(ingredient)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack(alignment: .top) {
+                        Text("•")
+                        Text(ingredient)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .contentTransition(.opacity)

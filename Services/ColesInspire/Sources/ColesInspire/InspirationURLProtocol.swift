@@ -28,7 +28,7 @@ final class InspirationURLProtocol: URLProtocol {
 
         let response = HTTPURLResponse(
             url: URL(string: "http://www.coles.com.au/content/dam/coles/inspire-create")!,
-            statusCode: 200,
+            statusCode: statusCode,
             httpVersion: nil,
             headerFields: ["Content-Type": "application/json"]
         )!

@@ -63,6 +63,13 @@ public struct Recipe: Identifiable, Decodable, Sendable, Equatable, Hashable {
     }
 }
 
+public extension Recipe {
+    var totalTime: Time {
+        let duration = prepTime.duration + cookTime.duration
+        return .init(label: "Total", duration: duration)
+    }
+}
+
 extension Recipe {
     enum CodingKeys: String, CodingKey {
         case title = "dynamicTitle"

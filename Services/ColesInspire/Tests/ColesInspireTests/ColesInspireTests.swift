@@ -37,4 +37,5 @@ import Testing
     #expect(recipe.amount == .init(amountType: .serves, value: 6))
     #expect(recipe.prepTime == .init(label: "Prep", durationAsMinutes: 25, note: "+ soaking time"))
     #expect(recipe.cookTime == .init(label: "Cooking", durationAsMinutes: 45))
+    #expect(recipe.totalTime.duration == .seconds(70 * 60))
 }
