@@ -14,7 +14,7 @@ struct RecipeView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 StretchableHeader {
-                    AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                    AsyncImageView(path: recipe.thumbnail.path, alt: recipe.thumbnail.alt)
                 }
                 .aspectRatio(480/288, contentMode: .fill)
 

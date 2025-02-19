@@ -13,7 +13,7 @@ struct RecipeCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topLeading) {
-                AsyncImageView(url: recipe.thumbnail.url, alt: recipe.thumbnail.alt)
+                AsyncImageView(path: recipe.thumbnail.path, alt: recipe.thumbnail.alt)
                     .aspectRatio(480/288, contentMode: .fit)
                 detailsView
             }

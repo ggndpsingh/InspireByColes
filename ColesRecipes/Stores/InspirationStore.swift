@@ -29,4 +29,8 @@ final class InspirationStore {
             recipesDataState = .failure(error)
         }
     }
+
+    func imageURL(relativePath: String) -> URL {
+        client.buildURL(relativePath: relativePath)
+    }
 }

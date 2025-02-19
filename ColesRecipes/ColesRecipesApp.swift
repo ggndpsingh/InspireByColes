@@ -11,7 +11,7 @@ struct ColesRecipesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(client: InspirationClient())
+            RootView(client: InspirationClient.production)
         }
     }
 }

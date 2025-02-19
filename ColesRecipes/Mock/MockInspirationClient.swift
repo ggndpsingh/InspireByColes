@@ -27,6 +27,11 @@ final class MockInspirationClient: InspirationProviding {
             throw URLError(.badServerResponse)
         }
     }
+
+    func buildURL(relativePath: String) -> URL {
+        let baseURL = URL(string: "http://coles.com.au")!
+        return baseURL.appending(path: relativePath)
+    }
 }
 
 extension Recipe {

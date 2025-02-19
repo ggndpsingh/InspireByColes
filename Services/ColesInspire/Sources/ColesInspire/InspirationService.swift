@@ -5,8 +5,13 @@
 
 import Foundation
 
-/// A client that fetches recipe inspiration data from a remote server.
 struct InspirationService {
+
+    let apiEndpoint: APIEndpoint
+
+    init(apiEndpoint: APIEndpoint) {
+        self.apiEndpoint = apiEndpoint
+    }
 
     /// Asynchronously fetches recipe inspiration data from a remote endpoint using a custom URL protocol.
     ///
@@ -27,4 +32,13 @@ struct InspirationService {
         try? await Task.sleep(for: .seconds(1))
         return data
     }
+
+    /// Constructs a complete image URL from the provided relative path.
+    ///
+    /// - Parameter relativePath: The relative path of the image received in the API payload.
+    /// - Returns: A fully formed URL.
+    public func buildURL(relativePath: String) -> URL {
+        return apiEndpoint.baseURL.appending(path: relativePath)
+    }
 }
+

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct Recipe: Identifiable, Decodable, Sendable, Equatable, Hashable {
+public struct Recipe: Identifiable, Sendable, Equatable, Hashable {
     public let id: String
     public let title: String
     public let description: String
@@ -14,33 +14,6 @@ public struct Recipe: Identifiable, Decodable, Sendable, Equatable, Hashable {
     public let prepTime: Time
     public let cookTime: Time
     public let ingredients: [Ingredient]
-
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = UUID().uuidString
-        self.title = try container.decode(String.self, forKey: .title)
-        self.description = try container.decode(String.self, forKey: .description)
-
-        let thumbnailPath = try container.decode(String.self, forKey: .thumbnailPath)
-        let thumbnailAlt = try container.decode(String.self, forKey: .thumbnailAlt)
-        self.thumbnail = .init(path: thumbnailPath, alt: thumbnailAlt)
-
-        let details = try container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details)
-        let amountLabel = try details.decode(String.self, forKey: .amountLabel)
-        let amountNumber = try details.decode(Int.self, forKey: .amountNumber)
-        self.amount = .init(amountLabel: amountLabel, value: amountNumber)
-
-        let prepLabel = try details.decode(String.self, forKey: .prepLabel)
-        let prepDuration = try details.decode(Int.self, forKey: .prepTimeAsMinutes)
-        let prepNote = try details.decodeIfPresent(String.self, forKey: .prepNote)
-        self.prepTime = .init(label: prepLabel, durationAsMinutes: prepDuration, note: prepNote)
-
-        let cookLabel = try details.decode(String.self, forKey: .cookingLabel)
-        let cookDuration = try details.decode(Int.self, forKey: .cookTimeAsMinutes)
-        self.cookTime = .init(label: cookLabel, durationAsMinutes: cookDuration)
-
-        self.ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
-    }
 
     public init(
         id: String,
@@ -70,8 +43,36 @@ public extension Recipe {
     }
 }
 
-extension Recipe {
-    enum CodingKeys: String, CodingKey {
+extension Recipe: Decodable {
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = UUID().uuidString
+        self.title = try container.decode(String.self, forKey: .title)
+        self.description = try container.decode(String.self, forKey: .description)
+
+        let thumbnailPath = try container.decode(String.self, forKey: .thumbnailPath)
+        let thumbnailAlt = try container.decode(String.self, forKey: .thumbnailAlt)
+        self.thumbnail = .init(path: thumbnailPath, alt: thumbnailAlt)
+
+        let details = try container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details)
+        let amountLabel = try details.decode(String.self, forKey: .amountLabel)
+        let amountNumber = try details.decode(Int.self, forKey: .amountNumber)
+        self.amount = .init(amountLabel: amountLabel, value: amountNumber)
+
+        let prepLabel = try details.decode(String.self, forKey: .prepLabel)
+        let prepDuration = try details.decode(Int.self, forKey: .prepTimeAsMinutes)
+        let prepNote = try details.decodeIfPresent(String.self, forKey: .prepNote)
+        self.prepTime = .init(label: prepLabel, durationAsMinutes: prepDuration, note: prepNote)
+
+        let cookLabel = try details.decode(String.self, forKey: .cookingLabel)
+        let cookDuration = try details.decode(Int.self, forKey: .cookTimeAsMinutes)
+        self.cookTime = .init(label: cookLabel, durationAsMinutes: cookDuration)
+
+        self.ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
+    }
+
+    private enum CodingKeys: String, CodingKey {
         case title = "dynamicTitle"
         case description = "dynamicDescription"
         case thumbnailPath = "dynamicThumbnail"
@@ -80,7 +81,7 @@ extension Recipe {
         case ingredients
     }
 
-    enum DetailsCodingKeys: String, CodingKey {
+    private enum DetailsCodingKeys: String, CodingKey {
         case amountLabel
         case amountNumber
         case prepLabel

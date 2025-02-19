@@ -7,9 +7,13 @@ import SwiftUI
 
 struct AsyncImageView: View {
 
+    @Environment(InspirationStore.self) private var store
+
     private let cache = ImageCache()
-    let url: URL
+    let path: String
     let alt: String
+
+    private var url: URL { store.imageURL(relativePath: path) }
 
     @State private var dataState: DataState<UIImage> = .loading
 
