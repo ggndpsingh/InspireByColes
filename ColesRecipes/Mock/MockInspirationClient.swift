@@ -24,7 +24,6 @@ final class MockInspirationClient: InspirationProviding {
         case .populated:
             return Recipe.mocks
         case .error:
-            print("throwing")
             throw URLError(.badServerResponse)
         }
     }
