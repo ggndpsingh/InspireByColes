@@ -21,13 +21,15 @@ struct IngredientView: View {
             Text("•")
 
             Text(ingredient.item)
-                .fontWeight(.medium)
+                .fontWeight(.semibold)
 
             +
 
             Text(" " + ingredient.notes)
                 .foregroundStyle(.secondary)
         }
+        .contentTransition(.opacity)
+        .fontDesign(.serif)
     }
 }
 
