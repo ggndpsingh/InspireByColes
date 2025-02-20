@@ -51,5 +51,6 @@ struct RecipeCardView: View {
 
 #Preview {
     RecipeCardView(recipe: .mock)
+        .environment(InspirationStore(client: MockInspirationClient()))
         .padding()
 }
